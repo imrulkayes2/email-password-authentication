@@ -11,7 +11,8 @@ const Register = () => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
-        console.log(email, password);
+        const check = e.target.terms.checked;
+        console.log(email, password, check);
         setRegisterError('');
         setSuccess('');
         if (password.length < 6) {
@@ -20,6 +21,10 @@ const Register = () => {
         }
         else if (!/[A-Z]/.test(password)) {
             setRegisterError('password should contain atleast one number and one special character"');
+            return;
+        }
+        else if (!check) {
+            setRegisterError("Please, At first Accept our terms and condition");
             return;
         }
         createUserWithEmailAndPassword(auth, email, password)
@@ -38,15 +43,21 @@ const Register = () => {
                 <h3 className=" text-3xl mb-5">Please Register</h3>
                 <form onSubmit={handleSubmited}>
                     <input className="border w-3/4 mb-4" type="email" name="email" placeholder="Please enter your email" id="" required /><br />
-                    <input className="border w-3/4 mb-4"
-                        type={showPassword ? "text" : "password"}
-                        placeholder="Please enter your password"
-                        name="password"
-                        id="" required />
-                    <span onClick={() => setShowPassword(!showPassword)}>
-                        {
-                            showPassword ? <FaEye /> : <FaEyeSlash />
-                        }</span>
+                    <div className="relative">
+                        <input className="border w-3/4"
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Please enter your password"
+                            name="password"
+                            id="" required />
+                        <span className="absolute" onClick={() => setShowPassword(!showPassword)}>
+                            {
+                                showPassword ? <FaEye /> : <FaEyeSlash />
+                            }</span>
+                    </div> <br />
+                    <div className="mb-2 mr-15">
+                        <input type="checkbox" name="terms" id="" />
+                        <label htmlFor="terms">Accept for our terms and conditions</label>
+                    </div>
                     <input className=" bg-red-200 w-3/4 mb-4 border" type="submit" value="Register" />
                     {
                         success && <p className="text-green-600">{success}</p>
