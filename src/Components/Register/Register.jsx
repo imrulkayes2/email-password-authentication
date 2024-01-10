@@ -59,15 +59,14 @@ const Register = () => {
                         <label htmlFor="terms">Accept for our terms and conditions</label>
                     </div>
                     <input className=" bg-red-200 w-3/4 mb-4 border" type="submit" value="Register" />
-                    {
-                        success && <p className="text-green-600">{success}</p>
-                    }
-                    {
-                        registerError && <p className="text-red-800 text-xl">{registerError}</p>
-                    }
-
-
                 </form>
+                {
+                    success && <p className="text-green-600">{success}</p>
+                }
+                {
+                    registerError && <p className="text-red-800 text-xl">{registerError}</p>
+                }
+                <p>Already have an account please go to <a className='text bg-green-500 rounded-lg p-1' href="/login">Log In</a></p>
             </div>
         </div >
     );
